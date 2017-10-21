@@ -1,7 +1,7 @@
 # Avalara-Communications-SaaS-Pro
 The AFC REST service provides APIs to calculate taxes on communications transactions and lookup tax rate and jurisdiction information.
 
-# #Overview of Package
+# Overview of Package
 * __afc_geo_saaspro_docs__ -  AFC Geo Pro Documentation and Samples
     * __User Manuals__ User and Developer Documents
     * __Sample Code__ Sample .NET, Java, PHP and SOAP xml
