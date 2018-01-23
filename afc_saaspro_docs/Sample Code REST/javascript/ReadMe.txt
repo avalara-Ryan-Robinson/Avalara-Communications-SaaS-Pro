@@ -5,7 +5,7 @@ Running the sample
 In order to run the javascript samples for the AFC REST service:
 
 1. Modify the scripts/AfcRestSample.js file in order to update the baseAddress,
-   userName, and password values at the beginning of the AfcRestSample function.
+   userName, password, clientId and clientProfileId values at the beginning of the AfcRestSample function.
 2. Open the AfcRestSample.html file using a web browser. 
 
 Enabling Cross-Domain Requests

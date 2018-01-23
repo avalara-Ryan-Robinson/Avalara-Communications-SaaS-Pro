@@ -20,6 +20,8 @@ public class AfcRestClient {
     private final String newLine = System.getProperty("line.separator");
     private final String baseAddress;
     private final String authToken;
+    private final int clientId;
+    private final int clientProfileId;
     private final Json json = new Json();
     
     /**
@@ -29,13 +31,15 @@ public class AfcRestClient {
      * @param userName      User name for authentication.
      * @param password      Password for authentication.
      */
-    public AfcRestClient(String baseAddress, String userName, String password) {
+    public AfcRestClient(String baseAddress, String userName, String password, int clientId, int clientProfileId) {
         // Encode the credentials to base 64
         String credentials = userName + ":" + password;
         this.authToken = Base64.getEncoder().encodeToString(credentials.getBytes());
         this.baseAddress = baseAddress.endsWith("/") ? 
             baseAddress.substring(0, baseAddress.length() - 2): 
             baseAddress;
+        this.clientId = clientId;
+        this.clientProfileId = clientProfileId;
     }
     
     /**
@@ -147,6 +151,8 @@ public class AfcRestClient {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("Authorization", "Basic " + authToken);
+            conn.setRequestProperty("client_id", Integer.toString(clientId));
+            conn.setRequestProperty("client_profile_id", Integer.toString(clientProfileId));
             
             // Invoke API
             int responseCode = conn.getResponseCode();
@@ -188,6 +194,8 @@ public class AfcRestClient {
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Authorization", "Basic " + authToken);
+            conn.setRequestProperty("client_id", Integer.toString(clientId));
+            conn.setRequestProperty("client_profile_id", Integer.toString(clientProfileId));
             
             // Set the request body JSON object
             String body = json.serialize(param);

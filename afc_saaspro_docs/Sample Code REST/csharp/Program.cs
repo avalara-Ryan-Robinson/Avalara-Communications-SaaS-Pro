@@ -14,6 +14,8 @@ namespace Avalara.Comms.Rest.Sample
         private const string BaseAddress = "[BaseAddress]"; // Change to Base address for AFC REST service
         private const string UserName = "[UserName]";       // Credentials user name provided by Avalara
         private const string Password = "[Password]";       // Credentials password provided by Avalara
+        private const int ClientId = 536;                   // Client Id provided by Avalara
+        private const int ClientProfileId = 1;              // Client Profile Id provided by Avalara when a Client has multiple configuration
         private const string UtcFormat = "O";
         
         /// <summary>
@@ -25,7 +27,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"Sample program for AFC REST service");
             Console.WriteLine();
             Console.WriteLine(
-                $"NOTE: Update the BaseAddress, UserName, and Password constants in the Program.cs file accordingly");
+                $"NOTE: Update the BaseAddress, UserName, Password, ClientId and Client Profile ID constants in the Program.cs file accordingly");
             Console.WriteLine();
             
             GetServerTime();
@@ -50,7 +52,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: GET {BaseAddress}/api/v1/Application/ServerTime");
             Console.WriteLine();
 
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {
@@ -77,7 +79,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: POST {BaseAddress}/api/v1/Location/PCode");
             Console.WriteLine();
             
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {
@@ -126,7 +128,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: GET {BaseAddress}/api/v1/Location/Address/{pcode}");
             Console.WriteLine();
 
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {
@@ -153,7 +155,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: POST {BaseAddress}/api/v1/CalculateTaxes");
             Console.WriteLine();
 
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {
@@ -222,7 +224,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: POST {BaseAddress}/api/v1/CalculateAdjustments");
             Console.WriteLine();
 
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {
@@ -287,7 +289,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: POST {BaseAddress}/api/v1/BridgeConference/Taxes");
             Console.WriteLine();
 
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {
@@ -391,7 +393,7 @@ namespace Avalara.Comms.Rest.Sample
             Console.WriteLine($"API: POST {BaseAddress}/api/v1/CalculateWithOverrides/Taxes");
             Console.WriteLine();
 
-            using (var client = new AfcRestClient(BaseAddress, UserName, Password))
+            using (var client = new AfcRestClient(BaseAddress, UserName, Password, ClientId, ClientProfileId))
             {
                 try
                 {

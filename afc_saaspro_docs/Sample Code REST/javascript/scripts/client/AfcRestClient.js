@@ -4,13 +4,17 @@
  * @param baseAddress   AFC REST service base address.
  * @param userName      User name for authentication.
  * @param password      Password for authentication.
+ * @param clientId      client id provided by Avalara.
+ * @param clientProfileId      client Profile Id provided by Avalara.
  */
-function AfcRestClient(baseAddress, userName, password) {
+function AfcRestClient(baseAddress, userName, password, clientId, clientProfileId) {
 
     this.authToken = btoa(userName + ":" + password);   // Encode the credentials to base 64
     this.baseAddress = baseAddress[baseAddress.length - 1] === "/" ?
         baseAddress.substring(0, baseAddress.length - 1) :
         baseAddress;
+    this.clientId = clientId;
+    this.clientProfileId = clientProfileId;
 
     /**
      * Get server time. 
@@ -34,7 +38,7 @@ function AfcRestClient(baseAddress, userName, password) {
                     error(errorMsg);
             });
     };
-    
+
     /**
      * Determines the PCode for a location. 
      * 
@@ -48,7 +52,7 @@ function AfcRestClient(baseAddress, userName, password) {
             request,
             true,
             function (data) {
-                if (success) 
+                if (success)
                     success(data);
             },
             function (errorMsg) {
@@ -117,7 +121,7 @@ function AfcRestClient(baseAddress, userName, password) {
             transaction,
             true,
             function (data) {
-                if (success) 
+                if (success)
                     success(data);
             },
             function (errorMsg) {
@@ -125,7 +129,7 @@ function AfcRestClient(baseAddress, userName, password) {
                     error(errorMsg);
             });
     }
-    
+
     /**
      * Calculate taxes on a bridge conference transaction.
      * This method will take a Billing address, Bridge Address, Host Address 
@@ -155,7 +159,7 @@ function AfcRestClient(baseAddress, userName, password) {
                     error(errorMsg);
             });
     }
-    
+
     /**
      * Calculate taxes using overrides.
      * Accepts transaction and tax rate override data to perform tax calculations 
@@ -191,7 +195,11 @@ function AfcRestClient(baseAddress, userName, password) {
     this._get = function (url, async, success, error) {
         $.get({
             async: async,
-            headers: { "Authorization": "Basic " + this.authToken },
+            headers: {
+                "Authorization": "Basic " + this.authToken,
+                "client_id": this.clientId.toString(),
+                "client_profile_id":this.clientProfileId.toString()
+            },
             url: this.baseAddress + url
         })
         .done(function (data) {
@@ -230,7 +238,11 @@ function AfcRestClient(baseAddress, userName, password) {
                 }
                 return value;
             }),
-            headers: { "Authorization": "Basic " + this.authToken },
+            headers: {
+                "Authorization": "Basic " + this.authToken,
+                "client_id": this.clientId.toString(),
+                "client_profile_id": this.clientProfileId.toString()
+            },
             url: this.baseAddress + url
         })
         .done(function (data) {

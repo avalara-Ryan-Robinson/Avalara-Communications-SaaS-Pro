@@ -25,7 +25,9 @@ namespace Avalara.Comms.Rest.Sample.Client
         /// <param name="baseAddress">AFC REST service base address.</param>
         /// <param name="userName">User name for authentication.</param>
         /// <param name="password">Password for authentication.</param>
-        public AfcRestClient(string baseAddress, string userName, string password)
+        /// <param name="clientId">Client Id</param>
+        /// <param name="clientProfileId">Client Profile Id.</param>
+        public AfcRestClient(string baseAddress, string userName, string password, int clientId, int clientProfileId)
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(baseAddress.TrimEnd(ForwardSlash));
@@ -33,6 +35,8 @@ namespace Avalara.Comms.Rest.Sample.Client
             
             string token = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format($"{userName}:{password}")));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AuthHeader, token);
+            httpClient.DefaultRequestHeaders.Add("client_id", clientId.ToString());
+            httpClient.DefaultRequestHeaders.Add("client_profile_id", clientProfileId.ToString());
         }
 
         /// <summary>

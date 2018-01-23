@@ -5,8 +5,10 @@ function AfcRestSample() {
     var baseAddress = "[BaseAddress]";  // Change to Base address for AFC REST service
     var userName = "[UserName]";        // Credentials user name provided by Avalara
     var password = "[Password]";        // Credentials password provided by Avalara
+    var clientId = 536;                 // Client Id provided by Avalara
+    var clientProfileId = 1;            // Client Profile Id provided by Avalara
 
-    this.client = new AfcRestClient(baseAddress, userName, password);
+    this.client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
 
     /**
      * Executes the samples for the AFC REST service.
