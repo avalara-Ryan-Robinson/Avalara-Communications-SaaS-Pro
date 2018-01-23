@@ -13,6 +13,8 @@ public class Program {
     private static final String baseAddress = "[BaseAddress]"; // Change to Base address for AFC REST service
     private static final String userName = "[UserName]";       // Credentials user name provided by Avalara
     private static final String password = "[Password]";       // Credentials password provided by Avalara
+    private static final int clientId = 536;                   // Client Id provided by Avalara
+    private static final int clientProfileId = 1;              // Client Profile Id provided by Avalara when a Client has multiple configuration
     private static final Json json = new Json();
             
     /**
@@ -23,8 +25,8 @@ public class Program {
     public static void main(String[] args) {
         System.out.println("Sample program for AFC REST service");
         System.out.println();
-        System.out.println( "NOTE: Update the BaseAddress, UserName, and " +
-                "Password constants in the Program.cs file accordingly");
+        System.out.println( "NOTE: Update the BaseAddress, UserName, " +
+                "Password, Client Id and Client Profile Id constants in the Program.cs file accordingly");
         System.out.println();
 
         getServerTime();
@@ -49,7 +51,7 @@ public class Program {
 
         try
         {
-            AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+            AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
             
             // Invoke REST API to get the server time
             LocalDateTime serverTime = client.getServerTime();
@@ -75,7 +77,7 @@ public class Program {
 
         try
         {
-            AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+            AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
             
             // Create a RequestPCodeDetail object for the request body
             // NOTE: only one of the following properties must be populated: FipsCode, NpaNxx, or ZipAddress
@@ -113,7 +115,7 @@ public class Program {
         System.out.println();
 
         try {
-            AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+            AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
             
             // Invoke REST API to get the address information for the location
             AddressData[] addressData = client.getAddress(pcode);
@@ -137,7 +139,7 @@ public class Program {
         System.out.println();
 
         try {
-            AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+            AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
             
             // Create a Transaction object to specify the input data for the tax calculation
             // NOTE: Bill-To, Origination, and Termination can be entered using PCodes, FIPS Codes, NPANXX, or ZipAddress.
@@ -200,7 +202,7 @@ public class Program {
 
         try
         {
-        AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+        AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
             // Create a Transaction object similarly as for processing a regular tax calculation
             Transaction transaction = new Transaction()
                 .adjustmentDiscount(3)      // Specify a discount type for adjustments
@@ -257,7 +259,7 @@ public class Program {
         System.out.println();
 
         try {
-            AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+            AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
             
             // Create a BridgeConferenceTransaction object to specify the input data for the tax calculation
             BridgeConferenceTransaction transaction = new BridgeConferenceTransaction()
@@ -343,7 +345,7 @@ public class Program {
         System.out.println();
 
         try {
-            AfcRestClient client = new AfcRestClient(baseAddress, userName, password);
+            AfcRestClient client = new AfcRestClient(baseAddress, userName, password, clientId, clientProfileId);
 
             // Create a CalculateWithOverridesRequest object to specify the trasaction and override data
             CalculateWithOverridesRequest request = new CalculateWithOverridesRequest()
